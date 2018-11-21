@@ -38,6 +38,9 @@ Route::get('coba1', function () { // dijalankan url sbg /template
 Route::get('coba2', function () { // dijalankan url sbg /template
     return view('coba2'); // layouts --> folder, master --> nama filenya
 });
+    Route::get('upload',['as'=>'upload.index','uses'=>'UploadController@index']);
+    Route::get('upload/create',['as'=>'upload.create','uses'=>'UploadController@create']);
+    Route::post('upload',['as'=>'upload.store','uses'=>'UploadController@store']);
 
 Auth::routes();
 
@@ -45,10 +48,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 Route::prefix('admin')->group(function() {
-	// controller ada di Auth, nama file AdminLoginController, function showLoginForm
-	Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
-	Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
-	Route::get('/', 'AdminController@index')->name('admin.dashboard');
+    // controller ada di Auth, nama file AdminLoginController, function showLoginForm
+    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::get('/', 'AdminController@index')->name('admin.dashboard');
     Route::post('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 
     // Password reset routes
@@ -58,6 +61,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 
     Route::resource('manageadmins', 'ManageAdminController');
+
 });
 
 
